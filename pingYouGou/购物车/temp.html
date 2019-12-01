@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    // 如何高效产生m个n范围内的不重复随机数（m<=n)
+    // 如何高效产生m个n范围内的不重复随机数（m<=n)
+    var getRandomNumber = function(n, m) {
+      // 待实现方法体
+      var arr = [];
+      while (arr.length < m) {
+        var temp = Math.floor(Math.random() * n + 1);
+        if (arr.join(",").indexOf(temp) == -1) {
+          arr.push(temp);
+        }
+      }
+      return arr.join(",");
+    };
+    console.log(getRandomNumber(20, 3)); // 8,4,19
+  </script>
+</html>

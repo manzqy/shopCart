@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      ul {
+        list-style: none;
+      }
+      .tab {
+        width: 500px;
+        margin: 50px auto;
+      }
+      .row {
+        overflow: hidden;
+        width: 100%;
+      }
+      .title {
+        border: 1px solid #000;
+        border-bottom: none;
+      }
+      .title li {
+        float: left;
+        padding: 15px;
+        border-right: 1px solid #000;
+        border-bottom: 1px solid #000;
+        color: green;
+      }
+      .content {
+        height: 450px;
+        border: 1px solid #000;
+      }
+      .content li {
+        display: none;
+        padding: 15px;
+        height: 100%;
+        font-size: 20px;
+        color: green;
+      }
+      .content li.show {
+        display: block;
+      }
+      .title li.bg-pink {
+        background-color: hotpink;
+        border-bottom: 1px solid green;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="tab">
+      <div class="row title">
+        <ul>
+          <li class="bg-pink">第一个</li>
+          <li>第二个</li>
+          <li>第三个</li>
+        </ul>
+      </div>
+      <div class="row content">
+        <ul>
+          <li class="show">这是第一张页面哦</li>
+          <li>这是第二张页面哦</li>
+          <li>这是第三张页面哦</li>
+        </ul>
+      </div>
+    </div>
+  </body>
+  <script>
+    class Tab {
+      constructor(casual = {}) {
+        //   默认值
+        var gather = {
+          selectorTop: ".title li",
+          selectorButton: ".content li",
+          type: "mouseenter",
+          classTop: "bg-pink",
+          classButton: "show",
+          duration: 1000,
+          start: 0
+        };
+        Object.assign(gather, casual);
+        Object.assign(this, gather);
+        this.eleTop = document.querySelectorAll(this.selectorTop);
+        this.eleButton = document.querySelectorAll(this.selectorButton);
+        this.addEvent();
+        this.autoPlay();
+      }
+      //   添加事件
+      addEvent() {
+        this.eleTop.forEach((e, i) => {
+          e.addEventListener(this.type, () => {
+            this.start = i;
+            this.changeTop(e);
+            this.changeText(i);
+          });
+        });
+      }
+      //   切换内容
+      changeTop(ele) {
+        this.eleTop.forEach(e => e.classList.remove(this.classTop));
+        ele.classList.add(this.classTop);
+      }
+      changeText(index) {
+        this.eleButton.forEach(e => e.classList.remove(this.classButton));
+        this.eleButton[index].classList.add(this.classButton);
+      }
+      autoPlay() {
+        setInterval(() => {
+          this.start++;
+          if (this.start > 2) this.start = 0;
+          this.changeTop(this.eleTop[this.start]);
+          this.changeText(this.start);
+        }, this.duration);
+      }
+    }
+    new Tab({
+      duration: 200
+    });
+  </script>
+</html>
